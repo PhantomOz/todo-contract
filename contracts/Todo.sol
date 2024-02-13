@@ -3,6 +3,7 @@ pragma solidity ^0.8.18;
 
 contract Todo {
     struct TodoList {
+        uint256 id;
         string title;
         string description;
         uint256 createdAt;
@@ -11,4 +12,26 @@ contract Todo {
     }
 
     TodoList[] public todoLists;
+
+    function addTodo(
+        string calldata _title,
+        string calldata _description
+    ) external {
+        uint256 _id = todoLists.length;
+        todoLists.push(
+            TodoList(
+                _id,
+                _title,
+                _description,
+                block.timestamp,
+                block.timestamp,
+                false
+            )
+        );
+    }
+
+    function toggleDone(uint256 _id) external {
+        require(_id < todoLists.length, "out of list");
+        todoLists[_id].isDone = !todoLists[_id].isDone;
+    }
 }
