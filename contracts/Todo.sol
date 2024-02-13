@@ -45,4 +45,9 @@ contract Todo {
         todoLists[_id].description = _description;
         todoLists[_id].updatedAt = block.timestamp;
     }
+
+    function deleteTodo(uint256 _id) external {
+        require(_id < todoLists.length, "out of list");
+        delete (todoLists[_id]);
+    }
 }
