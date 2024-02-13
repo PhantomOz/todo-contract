@@ -34,4 +34,15 @@ contract Todo {
         require(_id < todoLists.length, "out of list");
         todoLists[_id].isDone = !todoLists[_id].isDone;
     }
+
+    function editTodo(
+        uint256 _id,
+        string calldata _title,
+        string calldata _description
+    ) external {
+        require(_id < todoLists.length, "out of list");
+        todoLists[_id].title = _title;
+        todoLists[_id].description = _description;
+        todoLists[_id].updatedAt = block.timestamp;
+    }
 }
